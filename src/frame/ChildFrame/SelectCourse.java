@@ -12,34 +12,34 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /*
- * @author ÀµÒµÖÇ
+ * @author lyz
  * @version 1.0
  * @time 2022-11-30
- * @comment ²éÑ¯¿Î³Ì±íµÄ½çÃæ
+ * @comment æŸ¥è¯¢è¯¾ç¨‹è¡¨çš„ç•Œé¢
  */
 public class SelectCourse {
     public SelectCourse() throws SQLException {
-        //¸ü¸ÄUI½çÃæ£¬µ¼ÈëÃÀ»¯°ü
+        //æ›´æ”¹UIç•Œé¢ï¼Œå¯¼å…¥ç¾åŒ–åŒ…
         try {
             UIManager.setLookAndFeel(new FlatDarkLaf());
         } catch (UnsupportedLookAndFeelException e) {
             throw new RuntimeException(e);
         }
 
-        //ÉèÖÃ´°¿Ú´óĞ¡ºÍÎ»ÖÃ£¬²»ÔÊĞíÍÏ¶¯ºÍËõĞ¡·Å´ó
-        JFrame frame = new JFrame("¿Î³Ì±í");
+        //è®¾ç½®çª—å£å¤§å°å’Œä½ç½®ï¼Œä¸å…è®¸æ‹–åŠ¨å’Œç¼©å°æ”¾å¤§
+        JFrame frame = new JFrame("è¯¾ç¨‹è¡¨");
         Dimension ScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (int) (ScreenSize.getWidth() / 2 - 800 / 2);
         int y = (int) (ScreenSize.getHeight() / 2 - 600 / 2);
         frame.setBounds(x, y, 800, 600);
         frame.setResizable(false);
 
-        //Ö´ĞĞSQLÓï¾ä
+        //æ‰§è¡ŒSQLè¯­å¥
         Connection connection = DataBaseUtils.getConnection();
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("select * from course");
 
-        //½«µÃµ½µÄÊı¾İÌî³äµ½±í¸ñÖĞ
+        //å°†å¾—åˆ°çš„æ•°æ®å¡«å……åˆ°è¡¨æ ¼ä¸­
         String[] names = {"Cno", "Cname", "Ccredit", "Cnum", "Tno"};
         String[] data = new String[5];
         DefaultTableModel model = new DefaultTableModel(names, 0);
@@ -49,7 +49,7 @@ public class SelectCourse {
             }
             model.addRow(data);
         }
-        //ĞÂ½¨±í¸ñ
+        //æ–°å»ºè¡¨æ ¼
         JTable table = new JTable();
         table.setModel(model);
         JScrollPane scrollPane = new JScrollPane(table);
