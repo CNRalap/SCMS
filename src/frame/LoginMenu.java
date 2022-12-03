@@ -13,22 +13,22 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /*
- * @author ÀµÒµÖÇ
+ * @author lyz
  * @version 1.0
  * @time 2022-11-28
- * @comment µÇÂ¼½çÃæ
+ * @comment ç™»å½•ç•Œé¢
  */
 public class LoginMenu {
     public static void main(String[] args) {
-        //¸ü¸ÄUI½çÃæ£¬µ¼ÈëÃÀ»¯°ü
+        //æ›´æ”¹UIç•Œé¢ï¼Œå¯¼å…¥ç¾åŒ–åŒ…
         try {
             UIManager.setLookAndFeel(new FlatDarkLaf());
         } catch (UnsupportedLookAndFeelException e) {
             throw new RuntimeException(e);
         }
 
-        //ÉèÖÃ´°¿Ú´óĞ¡ºÍÎ»ÖÃ£¬²»ÔÊĞíÍÏ¶¯ºÍËõĞ¡·Å´ó
-        JFrame frame = new JFrame("Ñ§ÉúÑ¡¿Î¹ÜÀíÏµÍ³");
+        //è®¾ç½®çª—å£å¤§å°å’Œä½ç½®ï¼Œä¸å…è®¸æ‹–åŠ¨å’Œç¼©å°æ”¾å¤§
+        JFrame frame = new JFrame("å­¦ç”Ÿé€‰è¯¾ç®¡ç†ç³»ç»Ÿ");
         Dimension ScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (int) (ScreenSize.getWidth() / 2 - 500 / 2);
         int y = (int) (ScreenSize.getHeight() / 2 - 300 / 2);
@@ -36,43 +36,43 @@ public class LoginMenu {
         frame.setLayout(null);
         frame.setResizable(false);
 
-        //ÉèÖÃÖ÷Ìâ±êÇ©
-        JLabel label1 = new JLabel("ÓÃ»§µÇÂ¼");
-        label1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 20));
+        //è®¾ç½®ä¸»é¢˜æ ‡ç­¾
+        JLabel label1 = new JLabel("ç”¨æˆ·ç™»å½•");
+        label1.setFont(new Font("å¾®è½¯é›…é»‘", Font.BOLD, 20));
         label1.setBounds(210, 40, 100, 20);
         frame.add(label1);
 
-        //ÉèÖÃÎÄ±¾¿òºÍÃÜÂë¿ò
+        //è®¾ç½®æ–‡æœ¬æ¡†å’Œå¯†ç æ¡†
         JTextField field1 = new JTextField();
         JPasswordField jPasswordField = new JPasswordField();
-        field1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 15));
-        jPasswordField.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 15));
+        field1.setFont(new Font("å¾®è½¯é›…é»‘", Font.PLAIN, 15));
+        jPasswordField.setFont(new Font("å¾®è½¯é›…é»‘", Font.PLAIN, 15));
         field1.setBounds(160, 80, 200, 20);
         jPasswordField.setBounds(160, 120, 200, 20);
-        field1.setText("ÇëÊäÈëÕÊºÅ");
+        field1.setText("è¯·è¾“å…¥å¸å·");
         jPasswordField.setText("123456");
         frame.add(field1);
         frame.add(jPasswordField);
 
-        //ÉèÖÃµÇÂ¼°´Å¥
-        JButton button = new JButton("µÇÂ¼");
-        button.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 14));
+        //è®¾ç½®ç™»å½•æŒ‰é’®
+        JButton button = new JButton("ç™»å½•");
+        button.setFont(new Font("å¾®è½¯é›…é»‘", Font.BOLD, 14));
         button.setBounds(220, 160, 60, 20);
         frame.add(button);
 
-        //¹Ø±ÕÊ±µ¯³öÌáÊ¾
-        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE); //Ä¬ÈÏ¹Ø±ÕĞĞÎªÉè¶¨ÎªÊ²Ã´¶¼²»×ö
-        frame.addWindowListener(new WindowAdapter() { //Éè¶¨¹Ø±Õ´°¿ÚµÄĞĞÎª
+        //å…³é—­æ—¶å¼¹å‡ºæç¤º
+        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE); //é»˜è®¤å…³é—­è¡Œä¸ºè®¾å®šä¸ºä»€ä¹ˆéƒ½ä¸åš
+        frame.addWindowListener(new WindowAdapter() { //è®¾å®šå…³é—­çª—å£çš„è¡Œä¸º
             @Override
             public void windowClosing(WindowEvent e) {
-                int value = JOptionPane.showConfirmDialog(frame, "ÊÇ·ñÒªÍË³ö?", "ÌáÊ¾", JOptionPane.YES_NO_OPTION); //µ¯³ö¶Ô»°¿ò½øĞĞÑ¯ÎÊÊÇ·ñ¹Ø±Õ
+                int value = JOptionPane.showConfirmDialog(frame, "æ˜¯å¦è¦é€€å‡º?", "æç¤º", JOptionPane.YES_NO_OPTION); //å¼¹å‡ºå¯¹è¯æ¡†è¿›è¡Œè¯¢é—®æ˜¯å¦å…³é—­
                 if (value == JOptionPane.OK_OPTION) System.exit(0);
             }
         });
 
 
-        //ÉèÖÃ¼àÌıÆ÷»ñÈ¡ÕÊºÅºÍÃÜÂë£¬ÓÉÓÚÊÇĞ¡ÏîÄ¿ÀÁµÃMD5¼ÓÃÜ´¦Àí£¬Òò´Ë°²È«ĞÔ½ÏµÍ
-        //Èç¹ûÕÊºÅºÍÃÜÂëÓĞÎóÔòµ¯³öÌáÊ¾´°¿Ú
+        //è®¾ç½®ç›‘å¬å™¨è·å–å¸å·å’Œå¯†ç ï¼Œç”±äºæ˜¯å°é¡¹ç›®æ‡’å¾—MD5åŠ å¯†å¤„ç†ï¼Œå› æ­¤å®‰å…¨æ€§è¾ƒä½
+        //å¦‚æœå¸å·å’Œå¯†ç æœ‰è¯¯åˆ™å¼¹å‡ºæç¤ºçª—å£
         button.addActionListener(
                 new ActionListener() {
                     @Override
@@ -86,7 +86,7 @@ public class LoginMenu {
                             throw new RuntimeException(ex);
                         }
                         if (flag == 0) {
-                            int value = JOptionPane.showConfirmDialog(frame, "ÕÊºÅ»òÃÜÂëÓĞÎó", "ÌáÊ¾", JOptionPane.CLOSED_OPTION);
+                            int value = JOptionPane.showConfirmDialog(frame, "å¸å·æˆ–å¯†ç æœ‰è¯¯", "æç¤º", JOptionPane.CLOSED_OPTION);
                         } else if (flag == 1) {
                             StudentMenu studentMenu = new StudentMenu(account);
                             frame.dispose();
@@ -98,7 +98,7 @@ public class LoginMenu {
                 }
         );
 
-        //½«´°¿ÚÉèÖÃ¿ÉÊÓ£¬·ÅÔÚ×îºóÊÇÎªÁË±ÜÃâ¿ò³öÀ´ÁË×é¼şÃ»¼ÓÔØ³öÀ´µÄÎÊÌâ
+        //å°†çª—å£è®¾ç½®å¯è§†ï¼Œæ”¾åœ¨æœ€åæ˜¯ä¸ºäº†é¿å…æ¡†å‡ºæ¥äº†ç»„ä»¶æ²¡åŠ è½½å‡ºæ¥çš„é—®é¢˜
         frame.setVisible(true);
     }
 }
