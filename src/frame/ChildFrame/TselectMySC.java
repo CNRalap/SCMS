@@ -15,37 +15,37 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /*
- * @author ÀµÒµÖÇ
+ * @author lyz
  * @version 1.0
  * @time 2022-12-2
- * @comment ¿ÉÒÔ²é¿´½ÌÊ¦×Ô¼º¸ºÔğµÄÄ³Ò»¿Î³ÌµÄÑ§Éú¼°Æä³É¼¨£¬²¢ÇÒ¿ÉÒÔĞŞ¸ÄÑ§Éú³É¼¨
+ * @comment å¯ä»¥æŸ¥çœ‹æ•™å¸ˆè‡ªå·±è´Ÿè´£çš„æŸä¸€è¯¾ç¨‹çš„å­¦ç”ŸåŠå…¶æˆç»©ï¼Œå¹¶ä¸”å¯ä»¥ä¿®æ”¹å­¦ç”Ÿæˆç»©
  */
 public class TselectMySC {
     public TselectMySC(String Tno, String Cno) throws SQLException {
-        //¸ü¸ÄUI½çÃæ£¬µ¼ÈëÃÀ»¯°ü
+        //æ›´æ”¹UIç•Œé¢ï¼Œå¯¼å…¥ç¾åŒ–åŒ…
         try {
             UIManager.setLookAndFeel(new FlatDarkLaf());
         } catch (UnsupportedLookAndFeelException e) {
             throw new RuntimeException(e);
         }
 
-        //ÉèÖÃ´°¿Ú´óĞ¡ºÍÎ»ÖÃ£¬²»ÔÊĞíÍÏ¶¯ºÍËõĞ¡·Å´ó
-        JFrame frame = new JFrame("¿Î³ÌºÅ£º" + Cno);
+        //è®¾ç½®çª—å£å¤§å°å’Œä½ç½®ï¼Œä¸å…è®¸æ‹–åŠ¨å’Œç¼©å°æ”¾å¤§
+        JFrame frame = new JFrame("è¯¾ç¨‹å·ï¼š" + Cno);
         Dimension ScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (int) (ScreenSize.getWidth() / 2 - 800 / 2);
         int y = (int) (ScreenSize.getHeight() / 2 - 600 / 2);
         frame.setBounds(x, y, 800, 600);
         frame.setResizable(false);
 
-        //ÉèÖÃ²Ëµ¥À¸ºÍ°´¼ü
+        //è®¾ç½®èœå•æ å’ŒæŒ‰é”®
         JMenuBar bar = new JMenuBar();
-        JMenu menu = new JMenu("±à¼­");
-        JMenuItem item = new JMenuItem("±à¼­³É¼¨");
+        JMenu menu = new JMenu("ç¼–è¾‘");
+        JMenuItem item = new JMenuItem("ç¼–è¾‘æˆç»©");
         menu.add(item);
         bar.add(menu);
         frame.setJMenuBar(bar);
 
-        //Ö´ĞĞSQLÓï¾ä
+        //æ‰§è¡ŒSQLè¯­å¥
         Connection connection = DataBaseUtils.getConnection();
         String sql = "select Sno,Grade from sc where Tno=? and Cno=? ";
         final PreparedStatement[] preparedStatement = {connection.prepareStatement(sql)};
@@ -53,7 +53,7 @@ public class TselectMySC {
         preparedStatement[0].setString(2, Cno);
         final ResultSet[] resultSet = {preparedStatement[0].executeQuery()};
 
-        //½«µÃµ½µÄÊı¾İÌî³äµ½±í¸ñÖĞ
+        //å°†å¾—åˆ°çš„æ•°æ®å¡«å……åˆ°è¡¨æ ¼ä¸­
         String[] names = {"Sno", "Grade"};
         String[] data = new String[2];
         DefaultTableModel model = new DefaultTableModel(names, 0);
@@ -66,22 +66,22 @@ public class TselectMySC {
             flag = false;
         }
 
-        //ĞÂ½¨±í¸ñ
+        //æ–°å»ºè¡¨æ ¼
         JTable table = new JTable();
         table.setModel(model);
         JScrollPane scrollPane = new JScrollPane(table);
         frame.add(scrollPane, BorderLayout.CENTER);
 
-        //¶Ô²Ëµ¥À¸°´¼ü¼àÌı£¬Í¬Ê±Ë¢ĞÂ±í¸ñ
+        //å¯¹èœå•æ æŒ‰é”®ç›‘å¬ï¼ŒåŒæ—¶åˆ·æ–°è¡¨æ ¼
         item.addActionListener(new ActionListener() {
                                    @Override
                                    public void actionPerformed(ActionEvent e) {
-                                       String Sno = JOptionPane.showInputDialog("ÇëÊäÈëÒªĞŞ¸Ä³É¼¨µÄÑ§ÉúµÄÑ§ºÅ");
-                                       String Grade = JOptionPane.showInputDialog("ÇëÊäÈë³É¼¨");
+                                       String Sno = JOptionPane.showInputDialog("è¯·è¾“å…¥è¦ä¿®æ”¹æˆç»©çš„å­¦ç”Ÿçš„å­¦å·");
+                                       String Grade = JOptionPane.showInputDialog("è¯·è¾“å…¥æˆç»©");
                                        try {
                                            boolean f = DataBaseOperation.UpdateGrade(Grade, Sno, Cno, Tno);
                                            if (f) {
-                                               JOptionPane.showConfirmDialog(frame, "ĞŞ¸Ä³É¹¦", "ÌáÊ¾", JOptionPane.CLOSED_OPTION);
+                                               JOptionPane.showConfirmDialog(frame, "ä¿®æ”¹æˆåŠŸ", "æç¤º", JOptionPane.CLOSED_OPTION);
                                                preparedStatement[0] = connection.prepareStatement(sql);
                                                preparedStatement[0].setString(1, Tno);
                                                preparedStatement[0].setString(2, Cno);
@@ -94,7 +94,7 @@ public class TselectMySC {
                                                    model.addRow(data);
                                                }
                                                table.updateUI();
-                                           } else JOptionPane.showConfirmDialog(frame, "ĞŞ¸ÄÊ§°Ü", "ÌáÊ¾", JOptionPane.CLOSED_OPTION);
+                                           } else JOptionPane.showConfirmDialog(frame, "ä¿®æ”¹å¤±è´¥", "æç¤º", JOptionPane.CLOSED_OPTION);
                                        } catch (SQLException ex) {
                                            throw new RuntimeException(ex);
                                        }
@@ -102,9 +102,9 @@ public class TselectMySC {
                                }
         );
 
-        //ÓÃÀ´ÌáÊ¾²éÑ¯ÓĞÎó
+        //ç”¨æ¥æç¤ºæŸ¥è¯¢æœ‰è¯¯
         if (flag) {
-            JOptionPane.showMessageDialog(frame, "²éÑ¯¿Î³ÌºÅÓĞÎó", "ÌáÊ¾", JOptionPane.CLOSED_OPTION);
+            JOptionPane.showMessageDialog(frame, "æŸ¥è¯¢è¯¾ç¨‹å·æœ‰è¯¯", "æç¤º", JOptionPane.CLOSED_OPTION);
             return;
         }
 
