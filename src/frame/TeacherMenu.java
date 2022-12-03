@@ -12,34 +12,34 @@ import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
 /*
- * @author ÀµÒµÖÇ
+ * @author lyz
  * @version 1.0
  * @time 2022-11-29
- * @comment ½ÌÊ¦µÄ²Ù×÷½çÃæ
+ * @comment æ•™å¸ˆçš„æ“ä½œç•Œé¢
  */
 public class TeacherMenu {
     public TeacherMenu(String Tno) {
-        //¸ü¸ÄUI½çÃæ£¬µ¼ÈëÃÀ»¯°ü
+        //æ›´æ”¹UIç•Œé¢ï¼Œå¯¼å…¥ç¾åŒ–åŒ…
         try {
             UIManager.setLookAndFeel(new FlatDarkLaf());
         } catch (UnsupportedLookAndFeelException e) {
             throw new RuntimeException(e);
         }
 
-        //ÉèÖÃ´°¿Ú´óĞ¡ºÍÎ»ÖÃ£¬²»ÔÊĞíÍÏ¶¯ºÍËõĞ¡·Å´ó
-        JFrame frame = new JFrame("½ÌÊ¦£º" + Tno);
+        //è®¾ç½®çª—å£å¤§å°å’Œä½ç½®ï¼Œä¸å…è®¸æ‹–åŠ¨å’Œç¼©å°æ”¾å¤§
+        JFrame frame = new JFrame("æ•™å¸ˆï¼š" + Tno);
         Dimension ScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (int) (ScreenSize.getWidth() / 2 - 500 / 2);
         int y = (int) (ScreenSize.getHeight() / 2 - 300 / 2);
         frame.setBounds(x, y, 500, 300);
         frame.setLayout(null);
         frame.setResizable(false);
-        frame.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 14));
+        frame.setFont(new Font("å¾®è½¯é›…é»‘", Font.BOLD, 14));
 
-        //Ìí¼Ó°´Å¥
-        JButton button1 = new JButton("²é¿´¿Î³Ì±í");
-        JButton button2 = new JButton("²é¿´¸ºÔğ¿Î³Ì");
-        JButton button3 = new JButton("²é¿´¿Î³ÌÑ§Éú");
+        //æ·»åŠ æŒ‰é’®
+        JButton button1 = new JButton("æŸ¥çœ‹è¯¾ç¨‹è¡¨");
+        JButton button2 = new JButton("æŸ¥çœ‹è´Ÿè´£è¯¾ç¨‹");
+        JButton button3 = new JButton("æŸ¥çœ‹è¯¾ç¨‹å­¦ç”Ÿ");
         button1.setBounds(180, 60, 120, 25);
         button2.setBounds(180, 120, 120, 25);
         button3.setBounds(180, 180, 120, 25);
@@ -47,7 +47,7 @@ public class TeacherMenu {
         frame.add(button2);
         frame.add(button3);
 
-        //¼àÌı°´Å¥1
+        //ç›‘å¬æŒ‰é’®1
         button1.addActionListener(e -> {
             try {
                 SelectCourse selectCourse = new SelectCourse();
@@ -56,7 +56,7 @@ public class TeacherMenu {
             }
         });
 
-        //¼àÌı°´Å¥2
+        //ç›‘å¬æŒ‰é’®2
         button2.addActionListener(e -> {
             try {
                 TselectMyCourse tselectMyCourse = new TselectMyCourse(Tno);
@@ -65,9 +65,9 @@ public class TeacherMenu {
             }
         });
 
-        //¼àÌı°´Å¥3
+        //ç›‘å¬æŒ‰é’®3
         button3.addActionListener(e -> {
-            String Cno = JOptionPane.showInputDialog("ÇëÊäÈëÄãÒª²é¿´µÄ¿Î³ÌºÅ");
+            String Cno = JOptionPane.showInputDialog("è¯·è¾“å…¥ä½ è¦æŸ¥çœ‹çš„è¯¾ç¨‹å·");
             if (!Cno.isEmpty()) {
                 try {
                     TselectMySC tselectMySC = new TselectMySC(Tno, Cno);
@@ -79,12 +79,12 @@ public class TeacherMenu {
         });
 
 
-        //¹Ø±ÕÊ±µ¯³öÌáÊ¾
-        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE); //Ä¬ÈÏ¹Ø±ÕĞĞÎªÉè¶¨ÎªÊ²Ã´¶¼²»×ö
-        frame.addWindowListener(new WindowAdapter() { //Éè¶¨¹Ø±Õ´°¿ÚµÄĞĞÎª
+        //å…³é—­æ—¶å¼¹å‡ºæç¤º
+        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE); //é»˜è®¤å…³é—­è¡Œä¸ºè®¾å®šä¸ºä»€ä¹ˆéƒ½ä¸åš
+        frame.addWindowListener(new WindowAdapter() { //è®¾å®šå…³é—­çª—å£çš„è¡Œä¸º
             @Override
             public void windowClosing(WindowEvent e) {
-                int value = JOptionPane.showConfirmDialog(frame, "ÊÇ·ñÒªÍË³ö?", "ÌáÊ¾", JOptionPane.YES_NO_OPTION); //µ¯³ö¶Ô»°¿ò½øĞĞÑ¯ÎÊÊÇ·ñ¹Ø±Õ
+                int value = JOptionPane.showConfirmDialog(frame, "æ˜¯å¦è¦é€€å‡º?", "æç¤º", JOptionPane.YES_NO_OPTION); //å¼¹å‡ºå¯¹è¯æ¡†è¿›è¡Œè¯¢é—®æ˜¯å¦å…³é—­
                 if (value == JOptionPane.OK_OPTION) System.exit(0);
             }
         });
