@@ -16,46 +16,46 @@ import java.sql.SQLException;
 
 
 /*
- * @author ÀµÒµÖÇ
+ * @author lyz
  * @version 1.0
  * @time 2022-12-1
- * @comment ²é¿´½ÌÊ¦×Ô¼º¸ºÔğ¿Î³ÌµÄ½çÃæ£¬¿ÉÒÔĞÂÔö»òÕßÉ¾³ı×Ô¼º¸ºÔğµÄ¿Î³Ì
+ * @comment æŸ¥çœ‹æ•™å¸ˆè‡ªå·±è´Ÿè´£è¯¾ç¨‹çš„ç•Œé¢ï¼Œå¯ä»¥æ–°å¢æˆ–è€…åˆ é™¤è‡ªå·±è´Ÿè´£çš„è¯¾ç¨‹
  */
 public class TselectMyCourse {
     public TselectMyCourse(String Tno) throws SQLException {
-        //¸ü¸ÄUI½çÃæ£¬µ¼ÈëÃÀ»¯°ü
+        //æ›´æ”¹UIç•Œé¢ï¼Œå¯¼å…¥ç¾åŒ–åŒ…
         try {
             UIManager.setLookAndFeel(new FlatDarkLaf());
         } catch (UnsupportedLookAndFeelException e) {
             throw new RuntimeException(e);
         }
 
-        //ÉèÖÃ´°¿Ú´óĞ¡ºÍÎ»ÖÃ£¬²»ÔÊĞíÍÏ¶¯ºÍËõĞ¡·Å´ó
-        JFrame frame = new JFrame("¿Î³Ì±í");
+        //è®¾ç½®çª—å£å¤§å°å’Œä½ç½®ï¼Œä¸å…è®¸æ‹–åŠ¨å’Œç¼©å°æ”¾å¤§
+        JFrame frame = new JFrame("è¯¾ç¨‹è¡¨");
         Dimension ScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (int) (ScreenSize.getWidth() / 2 - 800 / 2);
         int y = (int) (ScreenSize.getHeight() / 2 - 600 / 2);
         frame.setBounds(x, y, 800, 600);
         frame.setResizable(false);
 
-        //ÉèÖÃ²Ëµ¥À¸ºÍ°´¼ü
+        //è®¾ç½®èœå•æ å’ŒæŒ‰é”®
         JMenuBar bar = new JMenuBar();
-        JMenu menu = new JMenu("±à¼­");
-        JMenuItem item1 = new JMenuItem("É¾³ı¿Î³Ì");
-        JMenuItem item2 = new JMenuItem("ĞÂÔö¿Î³Ì");
+        JMenu menu = new JMenu("ç¼–è¾‘");
+        JMenuItem item1 = new JMenuItem("åˆ é™¤è¯¾ç¨‹");
+        JMenuItem item2 = new JMenuItem("æ–°å¢è¯¾ç¨‹");
         menu.add(item1);
         menu.add(item2);
         bar.add(menu);
         frame.setJMenuBar(bar);
 
-        //Ö´ĞĞSQLÓï¾ä
+        //æ‰§è¡ŒSQLè¯­å¥
         Connection connection = DataBaseUtils.getConnection();
         String sql = "select * from course where Tno=? ";
         final PreparedStatement[] preparedStatement = {connection.prepareStatement(sql)};
         preparedStatement[0].setString(1, Tno);
         final ResultSet[] resultSet = {preparedStatement[0].executeQuery()};
 
-        //½«µÃµ½µÄÊı¾İÌî³äµ½±í¸ñÖĞ
+        //å°†å¾—åˆ°çš„æ•°æ®å¡«å……åˆ°è¡¨æ ¼ä¸­
         String[] names = {"Cno", "Cname", "Ccredit", "Cnum", "Tno"};
         String[] data = new String[5];
         DefaultTableModel model = new DefaultTableModel(names, 0);
@@ -66,22 +66,22 @@ public class TselectMyCourse {
             model.addRow(data);
         }
 
-        //ĞÂ½¨±í¸ñ
+        //æ–°å»ºè¡¨æ ¼
         JTable table = new JTable();
         table.setModel(model);
         JScrollPane scrollPane = new JScrollPane(table);
         frame.add(scrollPane, BorderLayout.CENTER);
 
-        //¶Ô²Ëµ¥À¸°´¼ü¼àÌı£¬Í¬Ê±Ë¢ĞÂ±í¸ñ
+        //å¯¹èœå•æ æŒ‰é”®ç›‘å¬ï¼ŒåŒæ—¶åˆ·æ–°è¡¨æ ¼
         item1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String Cno = JOptionPane.showInputDialog("ÇëÊäÈëÄãÒªÉ¾³ıµÄ¿Î³ÌºÅ");
+                String Cno = JOptionPane.showInputDialog("è¯·è¾“å…¥ä½ è¦åˆ é™¤çš„è¯¾ç¨‹å·");
                 if (!Cno.isEmpty())
                     try {
                         boolean f = DataBaseOperation.DeleteCourse(Cno, Tno);
                         if (f) {
-                            JOptionPane.showConfirmDialog(frame, "É¾³ı³É¹¦", "ÌáÊ¾", JOptionPane.CLOSED_OPTION);
+                            JOptionPane.showConfirmDialog(frame, "åˆ é™¤æˆåŠŸ", "æç¤º", JOptionPane.CLOSED_OPTION);
                             preparedStatement[0] = connection.prepareStatement(sql);
                             preparedStatement[0].setString(1, Tno);
                             resultSet[0] = preparedStatement[0].executeQuery();
@@ -93,26 +93,26 @@ public class TselectMyCourse {
                                 model.addRow(data);
                             }
                             table.updateUI();
-                        } else JOptionPane.showConfirmDialog(frame, "É¾³ıÊ§°Ü", "ÌáÊ¾", JOptionPane.CLOSED_OPTION);
+                        } else JOptionPane.showConfirmDialog(frame, "åˆ é™¤å¤±è´¥", "æç¤º", JOptionPane.CLOSED_OPTION);
                     } catch (SQLException ex) {
                         throw new RuntimeException(ex);
                     }
             }
         });
 
-        //¶Ô²Ëµ¥À¸°´¼ü¼àÌı£¬Í¬Ê±Ë¢ĞÂ±í¸ñ
+        //å¯¹èœå•æ æŒ‰é”®ç›‘å¬ï¼ŒåŒæ—¶åˆ·æ–°è¡¨æ ¼
         item2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String Cno = JOptionPane.showInputDialog("ÇëÊäÈëÄãÒªĞÂÔö¿Î³ÌµÄ¿Î³ÌºÅ");
-                String Cname = JOptionPane.showInputDialog("ÇëÊäÈëÄãÒªĞÂÔö¿Î³ÌµÄ¿Î³ÌÃû");
-                String Ccredit = JOptionPane.showInputDialog("ÇëÊäÈëÄãÒªĞÂÔö¿Î³ÌµÄÑ§·Ö(<=4)");
-                String Cnum = JOptionPane.showInputDialog("ÇëÊäÈëÄãÒªĞÂÔö¿Î³ÌµÄ×î´óÑ¡ĞŞÈËÊı(<=120)");
+                String Cno = JOptionPane.showInputDialog("è¯·è¾“å…¥ä½ è¦æ–°å¢è¯¾ç¨‹çš„è¯¾ç¨‹å·");
+                String Cname = JOptionPane.showInputDialog("è¯·è¾“å…¥ä½ è¦æ–°å¢è¯¾ç¨‹çš„è¯¾ç¨‹å");
+                String Ccredit = JOptionPane.showInputDialog("è¯·è¾“å…¥ä½ è¦æ–°å¢è¯¾ç¨‹çš„å­¦åˆ†(<=4)");
+                String Cnum = JOptionPane.showInputDialog("è¯·è¾“å…¥ä½ è¦æ–°å¢è¯¾ç¨‹çš„æœ€å¤§é€‰ä¿®äººæ•°(<=120)");
                 if (!Cno.isEmpty() && !Cname.isEmpty() && !Ccredit.isEmpty() && !Cnum.isEmpty())
                     try {
                         boolean f = DataBaseOperation.AddCourse(Cno, Cname, Ccredit, Cnum, Tno);
                         if (f) {
-                            JOptionPane.showConfirmDialog(frame, "ĞÂÔö³É¹¦", "ÌáÊ¾", JOptionPane.CLOSED_OPTION);
+                            JOptionPane.showConfirmDialog(frame, "æ–°å¢æˆåŠŸ", "æç¤º", JOptionPane.CLOSED_OPTION);
                             preparedStatement[0] = connection.prepareStatement(sql);
                             preparedStatement[0].setString(1, Tno);
                             resultSet[0] = preparedStatement[0].executeQuery();
@@ -124,7 +124,7 @@ public class TselectMyCourse {
                                 model.addRow(data);
                             }
                             table.updateUI();
-                        } else JOptionPane.showConfirmDialog(frame, "ĞÂÔöÊ§°Ü", "ÌáÊ¾", JOptionPane.CLOSED_OPTION);
+                        } else JOptionPane.showConfirmDialog(frame, "æ–°å¢å¤±è´¥", "æç¤º", JOptionPane.CLOSED_OPTION);
                     } catch (SQLException ex) {
                         throw new RuntimeException(ex);
                     }
