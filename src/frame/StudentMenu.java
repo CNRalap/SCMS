@@ -14,34 +14,34 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /*
- * @author ÀµÒµÖÇ
+ * @author lyz
  * @version 1.0
  * @time 2022-11-29
- * @comment Ñ§ÉúµÄ²Ù×÷½çÃæ
+ * @comment å­¦ç”Ÿçš„æ“ä½œç•Œé¢
  */
 public class StudentMenu {
     public StudentMenu(String Sno) {
-        //¸ü¸ÄUI½çÃæ£¬µ¼ÈëÃÀ»¯°ü
+        //æ›´æ”¹UIç•Œé¢ï¼Œå¯¼å…¥ç¾åŒ–åŒ…
         try {
             UIManager.setLookAndFeel(new FlatDarkLaf());
         } catch (UnsupportedLookAndFeelException e) {
             throw new RuntimeException(e);
         }
 
-        //ÉèÖÃ´°¿Ú´óĞ¡ºÍÎ»ÖÃ£¬²»ÔÊĞíÍÏ¶¯ºÍËõĞ¡·Å´ó
-        JFrame frame = new JFrame("Ñ§Éú£º" + Sno);
+        //è®¾ç½®çª—å£å¤§å°å’Œä½ç½®ï¼Œä¸å…è®¸æ‹–åŠ¨å’Œç¼©å°æ”¾å¤§
+        JFrame frame = new JFrame("å­¦ç”Ÿï¼š" + Sno);
         Dimension ScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (int) (ScreenSize.getWidth() / 2 - 500 / 2);
         int y = (int) (ScreenSize.getHeight() / 2 - 300 / 2);
         frame.setBounds(x, y, 500, 300);
         frame.setLayout(null);
         frame.setResizable(false);
-        frame.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 14));
+        frame.setFont(new Font("å¾®è½¯é›…é»‘", Font.BOLD, 14));
 
-        //Ìí¼Ó°´Å¥
-        JButton button1 = new JButton("²é¿´¿Î³Ì±í");
-        JButton button2 = new JButton("²éÑ¯Ñ¡¿ÎÇé¿ö");
-        JButton button3 = new JButton("ĞÂÔöÑ¡¿Î");
+        //æ·»åŠ æŒ‰é’®
+        JButton button1 = new JButton("æŸ¥çœ‹è¯¾ç¨‹è¡¨");
+        JButton button2 = new JButton("æŸ¥è¯¢é€‰è¯¾æƒ…å†µ");
+        JButton button3 = new JButton("æ–°å¢é€‰è¯¾");
         button1.setBounds(180, 60, 120, 25);
         button2.setBounds(180, 120, 120, 25);
         button3.setBounds(180, 180, 120, 25);
@@ -49,7 +49,7 @@ public class StudentMenu {
         frame.add(button2);
         frame.add(button3);
 
-        //¼àÌı°´Å¥1¶¯×÷
+        //ç›‘å¬æŒ‰é’®1åŠ¨ä½œ
         button1.addActionListener(e -> {
             try {
                 SelectCourse selectCourse = new SelectCourse();
@@ -58,7 +58,7 @@ public class StudentMenu {
             }
         });
 
-        //¼àÌı°´Å¥2¶¯×÷
+        //ç›‘å¬æŒ‰é’®2åŠ¨ä½œ
         button2.addActionListener(e -> {
             try {
                 SselectMySC sselectMySC = new SselectMySC(Sno);
@@ -67,14 +67,14 @@ public class StudentMenu {
             }
         });
 
-        //¼àÌı°´Å¥3¶¯×÷
+        //ç›‘å¬æŒ‰é’®3åŠ¨ä½œ
         button3.addActionListener(e -> {
-            String Cno = JOptionPane.showInputDialog("ÇëÊäÈëÄãÒªÑ¡ĞŞµÄ¿Î³ÌºÅ");
+            String Cno = JOptionPane.showInputDialog("è¯·è¾“å…¥ä½ è¦é€‰ä¿®çš„è¯¾ç¨‹å·");
             if (!Cno.isEmpty())
                 try {
                     boolean flag = DataBaseOperation.AddSC(Cno, Sno);
-                    if (flag) JOptionPane.showConfirmDialog(frame, "Ñ¡¿Î³É¹¦", "ÌáÊ¾", JOptionPane.CLOSED_OPTION);
-                    else JOptionPane.showConfirmDialog(frame, "Ñ¡¿ÎÊ§°Ü", "ÌáÊ¾", JOptionPane.CLOSED_OPTION);
+                    if (flag) JOptionPane.showConfirmDialog(frame, "é€‰è¯¾æˆåŠŸ", "æç¤º", JOptionPane.CLOSED_OPTION);
+                    else JOptionPane.showConfirmDialog(frame, "é€‰è¯¾å¤±è´¥", "æç¤º", JOptionPane.CLOSED_OPTION);
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 } catch (SQLException ex) {
@@ -82,12 +82,12 @@ public class StudentMenu {
                 }
         });
 
-        //¹Ø±ÕÊ±µ¯³öÌáÊ¾
-        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE); //Ä¬ÈÏ¹Ø±ÕĞĞÎªÉè¶¨ÎªÊ²Ã´¶¼²»×ö
-        frame.addWindowListener(new WindowAdapter() { //Éè¶¨¹Ø±Õ´°¿ÚµÄĞĞÎª
+        //å…³é—­æ—¶å¼¹å‡ºæç¤º
+        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE); //é»˜è®¤å…³é—­è¡Œä¸ºè®¾å®šä¸ºä»€ä¹ˆéƒ½ä¸åš
+        frame.addWindowListener(new WindowAdapter() { //è®¾å®šå…³é—­çª—å£çš„è¡Œä¸º
             @Override
             public void windowClosing(WindowEvent e) {
-                int value = JOptionPane.showConfirmDialog(frame, "ÊÇ·ñÒªÍË³ö?", "ÌáÊ¾", JOptionPane.YES_NO_OPTION); //µ¯³ö¶Ô»°¿ò½øĞĞÑ¯ÎÊÊÇ·ñ¹Ø±Õ
+                int value = JOptionPane.showConfirmDialog(frame, "æ˜¯å¦è¦é€€å‡º?", "æç¤º", JOptionPane.YES_NO_OPTION); //å¼¹å‡ºå¯¹è¯æ¡†è¿›è¡Œè¯¢é—®æ˜¯å¦å…³é—­
                 if (value == JOptionPane.OK_OPTION) System.exit(0);
             }
         });
