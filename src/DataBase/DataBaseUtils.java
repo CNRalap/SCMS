@@ -8,56 +8,56 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 /*
- * @author ÀµÒµÖÇ
+ * @author lyz
  * @version 1.0
  * @time 2022-11-30
- * @comment ÎªÁË±ÜÃâÖØ¸´ÊµÏÖÊı¾İÁ¬½ÓµÄ¹ı³Ì£¬½«Õâ¸ö¹ı³Ì·â×°³ÉÀàµ±¹¤¾ßÖ±½Óµ÷ÓÃ
+ * @comment ä¸ºäº†é¿å…é‡å¤å®ç°æ•°æ®è¿æ¥çš„è¿‡ç¨‹ï¼Œå°†è¿™ä¸ªè¿‡ç¨‹å°è£…æˆç±»å½“å·¥å…·ç›´æ¥è°ƒç”¨
  */
 public class DataBaseUtils {
-    static String driver;// Çı¶¯
-    static String url;// ÒªÁ¬½ÓÊı¾İ¿âµÄÂ·¾¶
-    static String user;// Á¬½ÓÊı¾İ¿âµÄÓÃ»§Ãû
-    static String password;// ÓÃ»§ÃûËù¶ÔÓ¦µÄÃÜÂë
+    static String driver;// é©±åŠ¨
+    static String url;// è¦è¿æ¥æ•°æ®åº“çš„è·¯å¾„
+    static String user;// è¿æ¥æ•°æ®åº“çš„ç”¨æˆ·å
+    static String password;// ç”¨æˆ·åæ‰€å¯¹åº”çš„å¯†ç 
 
     static {
         try {
-            // ÅäÖÃÎÄ¼ş¶ÔÏó
+            // é…ç½®æ–‡ä»¶å¯¹è±¡
             Properties properties = new Properties();
-            // ÓÃÓÚ¶ÁÈ¡ÎÄ¼ş×Ö½ÚÁ÷
+            // ç”¨äºè¯»å–æ–‡ä»¶å­—èŠ‚æµ
             properties.load(new FileInputStream("src/DataBase/mysql.properties"));
             url = properties.getProperty("url");
             user = properties.getProperty("user");
             password = properties.getProperty("password");
-            //ÏÖÔÚdriver¶¼ÊÇ×Ô¶¯¼ÓÔØÁË£¬ÕâÒ»²½¿ÉÓĞ¿ÉÎŞÁË
+            //ç°åœ¨driveréƒ½æ˜¯è‡ªåŠ¨åŠ è½½äº†ï¼Œè¿™ä¸€æ­¥å¯æœ‰å¯æ— äº†
             driver = properties.getProperty("driver");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // »ñÈ¡Á¬½Ó¶ÔÏó
+    // è·å–è¿æ¥å¯¹è±¡
     public static Connection getConnection() {
         try {
 
-            // Á¬½ÓÊı¾İ¿â,²éÕÒ²¢ÇÒ³¢ÊÔÁ¬½ÓÊı¾İ¿â
+            // è¿æ¥æ•°æ®åº“,æŸ¥æ‰¾å¹¶ä¸”å°è¯•è¿æ¥æ•°æ®åº“
             Connection connection = DriverManager.getConnection(url, user, password);
-            // cconnectionÊÇ¾Ö²¿±äÁ¿£¬Òò´ËÒ²Òª¶¨ÒåÔÚtryÖĞ¡£
+            // cconnectionæ˜¯å±€éƒ¨å˜é‡ï¼Œå› æ­¤ä¹Ÿè¦å®šä¹‰åœ¨tryä¸­ã€‚
             return connection;
         } catch (Exception e) {
             e.printStackTrace();
             /*
-             * ³ÌĞòÖ´ĞĞÊ±£¬Èô·¢ÏÖÒì³£»á½øĞĞ²¶»ñ´¦Àí£¬¾Íµ¼ÖÂÎŞ·¨Ö´ĞĞreturn·µ»Ø½á¹û£¬ÕâÑù¾ÍÎ¥±³ÁË·½·¨µÄ¶¨Òå¡£
-             * Òò´ËÔÚCatch²¶»ñ´¦ÀíÊ±ĞèÒª¶ÔÒì³£½øĞĞthrow´¦Àí£¬
+             * ç¨‹åºæ‰§è¡Œæ—¶ï¼Œè‹¥å‘ç°å¼‚å¸¸ä¼šè¿›è¡Œæ•è·å¤„ç†ï¼Œå°±å¯¼è‡´æ— æ³•æ‰§è¡Œreturnè¿”å›ç»“æœï¼Œè¿™æ ·å°±è¿èƒŒäº†æ–¹æ³•çš„å®šä¹‰ã€‚
+             * å› æ­¤åœ¨Catchæ•è·å¤„ç†æ—¶éœ€è¦å¯¹å¼‚å¸¸è¿›è¡Œthrowå¤„ç†ï¼Œ
              */
             throw new RuntimeException();
         }
     }
 
-    // ¹Ø±ÕÁ¬½Ó£¨ËäÈ»»ù±¾Ã»ÓÃÉÏ¹ı£©
+    // å…³é—­è¿æ¥ï¼ˆè™½ç„¶åŸºæœ¬æ²¡ç”¨ä¸Šè¿‡ï¼‰
     public static void close(Connection c) {
-        // ÏÈÅĞ¶ÏÊÇ·ñÁ¬½Ó³É¹¦£¬Á¬½Ó³É¹¦Ôò¹Ø±ÕÁ¬½Ó×ÊÔ´£¬·ñÔò¾Í²»ĞèÒª¹Ø±Õ
+        // å…ˆåˆ¤æ–­æ˜¯å¦è¿æ¥æˆåŠŸï¼Œè¿æ¥æˆåŠŸåˆ™å…³é—­è¿æ¥èµ„æºï¼Œå¦åˆ™å°±ä¸éœ€è¦å…³é—­
         if (c != null) {
-            // close()¹Ø±ÕÁ¬½Ó×ÊÔ´×ÔÉí´øÓĞÒì³£
+            // close()å…³é—­è¿æ¥èµ„æºè‡ªèº«å¸¦æœ‰å¼‚å¸¸
             try {
                 c.close();
             } catch (SQLException e) {
