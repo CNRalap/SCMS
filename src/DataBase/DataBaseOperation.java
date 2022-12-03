@@ -4,26 +4,26 @@ import java.io.IOException;
 import java.sql.*;
 
 /*
- * @author ÀµÒµÖÇ
+ * @author lyz
  * @version 1.0
  * @time 2022-11-30
- * @comment ÓÃÀ´ÊµÏÖÊı¾İ¿âÁ¬½ÓºÍÏà¹Øsql²Ù×÷µÄÀà
+ * @comment ç”¨æ¥å®ç°æ•°æ®åº“è¿æ¥å’Œç›¸å…³sqlæ“ä½œçš„ç±»
  */
 public class DataBaseOperation {
-    //×¢Òâ£¬Êı¾İ¿âSCDBÉè¼ÆÖ®³õÊ¹ÓÃÑ§ÉúÄ£Ê½ºÍ½ÌÊ¦Ä£Ê½µÄ£¬µ«ÓÉÓÚÎªÁË´úÂë¼ò»¯£¬´Ë´¦Ö±½ÓÓÃrootÓÃ»§
+    //æ³¨æ„ï¼Œæ•°æ®åº“SCDBè®¾è®¡ä¹‹åˆä½¿ç”¨å­¦ç”Ÿæ¨¡å¼å’Œæ•™å¸ˆæ¨¡å¼çš„ï¼Œä½†ç”±äºä¸ºäº†ä»£ç ç®€åŒ–ï¼Œæ­¤å¤„ç›´æ¥ç”¨rootç”¨æˆ·
 
-    //CheckUser·½·¨¹ËÃûË¼ÒåÊÇÓÃÀ´ÅĞ¶ÏÓÃ»§ÊÇÑ§Éú»¹ÊÇÀÏÊ¦
+    //CheckUseræ–¹æ³•é¡¾åæ€ä¹‰æ˜¯ç”¨æ¥åˆ¤æ–­ç”¨æˆ·æ˜¯å­¦ç”Ÿè¿˜æ˜¯è€å¸ˆ
     public static int CheckUser(String account, String PWD) throws SQLException, IOException {
-        //ÓÃflagÅĞ¶ÏÓÃ»§ÊÇÑ§Éú»¹ÊÇÀÏÊ¦
+        //ç”¨flagåˆ¤æ–­ç”¨æˆ·æ˜¯å­¦ç”Ÿè¿˜æ˜¯è€å¸ˆ
         boolean flag = true;
         char head = 't';
         char account_head = account.charAt(0);
         if (head == account_head) flag = false;
 
-        //½¨Á¢Á¬½Ó
+        //å»ºç«‹è¿æ¥
         Connection connection = DataBaseUtils.getConnection();
 
-        //²éÑ¯ÕÊºÅºÍÃÜÂëÊÇ·ñ¶ÔµÃÉÏ£¬·µ»Ø¶ÔÓ¦µÄÖµ
+        //æŸ¥è¯¢å¸å·å’Œå¯†ç æ˜¯å¦å¯¹å¾—ä¸Šï¼Œè¿”å›å¯¹åº”çš„å€¼
         if (flag) {
             String sql = "select Sno,Spwd from student where Sno=? and Spwd=?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -43,9 +43,9 @@ public class DataBaseOperation {
         }
     }
 
-    //AddSC¾ÍÊÇÓÃÀ´ÔÚSC±íĞÂÔöÑ§ÉúÑ¡¿ÎÓÃµÄ
+    //AddSCå°±æ˜¯ç”¨æ¥åœ¨SCè¡¨æ–°å¢å­¦ç”Ÿé€‰è¯¾ç”¨çš„
     public static boolean AddSC(String Cno, String Sno) throws IOException, SQLException {
-        //½¨Á¢Á¬½Ó
+        //å»ºç«‹è¿æ¥
         Connection connection = DataBaseUtils.getConnection();
         String Tno = null;
         String sql1 = "select Tno from course where Cno=?";
@@ -71,7 +71,7 @@ public class DataBaseOperation {
         return false;
     }
 
-    //UpdateGrade·½·¨¾ÍÊÇÔÚSCÖĞĞŞ¸Ä³É¼¨ÓÃµÄ
+    //UpdateGradeæ–¹æ³•å°±æ˜¯åœ¨SCä¸­ä¿®æ”¹æˆç»©ç”¨çš„
     public static boolean UpdateGrade(String Grade, String Sno, String Cno, String Tno) throws SQLException {
         Connection connection = DataBaseUtils.getConnection();
         try {
@@ -90,7 +90,7 @@ public class DataBaseOperation {
         return false;
     }
 
-    //DeleteCourse·½·¨¾ÍÊÇÔÚcourse±íÖĞÉ¾³ı¿Î³ÌÓÃµÄ
+    //DeleteCourseæ–¹æ³•å°±æ˜¯åœ¨courseè¡¨ä¸­åˆ é™¤è¯¾ç¨‹ç”¨çš„
     public static boolean DeleteCourse(String Cno, String Tno) {
         Connection connection = DataBaseUtils.getConnection();
         try {
@@ -107,7 +107,7 @@ public class DataBaseOperation {
         return false;
     }
 
-    //AddCourse¾ÍÊÇÔÚcourse±íÖĞĞÂÔö¿Î³ÌÓÃµÄ
+    //AddCourseå°±æ˜¯åœ¨courseè¡¨ä¸­æ–°å¢è¯¾ç¨‹ç”¨çš„
     public static boolean AddCourse(String Cno, String Cname, String Ccredit, String Cnum, String Tno) {
         Connection connection = DataBaseUtils.getConnection();
         try {
