@@ -71,6 +71,24 @@ public class DataBaseOperation {
         return false;
     }
 
+    //DeleteSC就是用来在SC表删除学生选课用的
+    public static boolean DeleteSC(String Cno, String Sno) throws IOException, SQLException {
+        //建立连接
+        Connection connection = DataBaseUtils.getConnection();
+        try {
+            String sql = "delete from SC where Cno=? and Sno=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, Cno);
+            preparedStatement.setString(2, Sno);
+            int result = preparedStatement.executeUpdate();
+            if (result > 0) return true;
+            else return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     //UpdateGrade方法就是在SC中修改成绩用的
     public static boolean UpdateGrade(String Grade, String Sno, String Cno, String Tno) throws SQLException {
         Connection connection = DataBaseUtils.getConnection();
@@ -126,5 +144,4 @@ public class DataBaseOperation {
         }
         return false;
     }
-
 }
