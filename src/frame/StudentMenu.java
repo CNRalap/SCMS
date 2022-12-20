@@ -42,12 +42,15 @@ public class StudentMenu {
         JButton button1 = new JButton("查看课程表");
         JButton button2 = new JButton("查询选课情况");
         JButton button3 = new JButton("新增选课");
-        button1.setBounds(180, 60, 120, 25);
-        button2.setBounds(180, 120, 120, 25);
-        button3.setBounds(180, 180, 120, 25);
+        JButton button4 = new JButton("删除选课");
+        button1.setBounds(180, 20, 120, 25);
+        button2.setBounds(180, 80, 120, 25);
+        button3.setBounds(180, 140, 120, 25);
+        button4.setBounds(180, 200, 120, 25);
         frame.add(button1);
         frame.add(button2);
         frame.add(button3);
+        frame.add(button4);
 
         //监听按钮1动作
         button1.addActionListener(e -> {
@@ -75,6 +78,21 @@ public class StudentMenu {
                     boolean flag = DataBaseOperation.AddSC(Cno, Sno);
                     if (flag) JOptionPane.showConfirmDialog(frame, "选课成功", "提示", JOptionPane.CLOSED_OPTION);
                     else JOptionPane.showConfirmDialog(frame, "选课失败", "提示", JOptionPane.CLOSED_OPTION);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+        });
+
+        //监听按钮4动作
+        button4.addActionListener(e -> {
+            String Cno = JOptionPane.showInputDialog("请输入你要选修的课程号");
+            if (!Cno.isEmpty())
+                try {
+                    boolean flag = DataBaseOperation.DeleteSC(Cno, Sno);
+                    if (flag) JOptionPane.showConfirmDialog(frame, "退课成功", "提示", JOptionPane.CLOSED_OPTION);
+                    else JOptionPane.showConfirmDialog(frame, "退课失败", "提示", JOptionPane.CLOSED_OPTION);
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 } catch (SQLException ex) {
