@@ -39,7 +39,7 @@ create table Teacher
 
 create table Course
 (
-    Cno     char(4) primary key,
+    Cno     smallint primary key,
     Cname   char(20) not null,
     Ccredit smallint not null,
     Cnum    smallint,
@@ -49,7 +49,7 @@ create table Course
 
 create table SC
 (
-    Cno   char(4) references Course (Cno) on delete cascade,
+    Cno   smallint references Course (Cno) on delete cascade,
     Sno   char(20) references Student (Sno),
     Tno   char(20) references Teacher (Tno),
     Grade smallint,
