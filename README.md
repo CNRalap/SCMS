@@ -1,5 +1,6 @@
 # HNU数据库大作业
->使用Swing写的图形化界面，MySQL作为数据库，由于是个人三天速通写完，实用可能算不上，但是应付下大作业感觉没啥问题。Swing导入了一个的flatlaf的美化包，可自行上网下载找到，如果懒得下载可以直接删掉导入的那部分代码也是你能正常运行，最后的实现结果贴在了ImgOfFrame文件夹下面。
+>version1.0：使用Swing写的图形化界面，MySQL作为数据库，由于是个人三天速通写完，实用可能算不上，但是应付下大作业感觉没啥问题。Swing导入了一个的flatlaf的美化包，可自行上网下载找到，如果懒得下载可以直接删掉导入的那部分代码也是你能正常运行，最后的实现结果贴在了ImgOfFrame文件夹下面。
+>version2.0：在1.0的基础上进行了代码上的升级，主要是将我这段时间学到的一些新东西去取代原有的旧代码，如lombok+mybatis+maven。在界面部分也做了一些优化，但是优化不多。并且最重要的是在数据库多添加了一个reduce_cnum触发器，解决了退课后相应课程的选课人数没有减少的bug，我将2.0版本放到另外一个分支中，有兴趣可以看一下。个人还是推荐写大作业的时候用版本1.0，上手更容易。
 ## 教师
 姓名；教师编号；密码
 
@@ -78,4 +79,21 @@ begin
         update course set cnum=cnum + 1 where Cno = NEW.Cno;
     end if;
 end;
+
+create trigger reduce_cnum
+    after delete
+    on sc
+    for each row
+begin
+    declare temp smallint;
+    declare message varchar(20);
+    select cnum into temp from course where course.Cno = old.Cno;
+    if (temp = 0)
+    then
+        select XXX into message;
+    else
+        update course set cnum=cnum - 1 where course.Cno = old.Cno;
+    end if;
+end;
+
 ```
